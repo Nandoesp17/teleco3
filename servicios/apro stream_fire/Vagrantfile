@@ -1,0 +1,16 @@
+Vagrant.configure("2") do |config|
+ config.vm.define :firewall do |firewall|
+  firewall.vm.box = "bento/centos-7.8"
+  firewall.vm.box_version = "202007.17.0"
+  firewall.vm.network :private_network, ip: "192.168.10.10"
+  firewall.vm.network "public_network", type: "dhcp", ip: "192.168.0.30"
+  firewall.vm.hostname = "firewall"
+  firewall.vm.provision "shell", path: "firewall.sh"
+end
+ config.vm.define :stream do |stream|
+  stream.vm.box = "bento/centos-7.8"
+  stream.vm.network :private_network, ip: "192.168.10.20" 
+  stream.vm.hostname = "stream"
+  stream.vm.provision "shell", path: "stream.sh"
+ end
+end
